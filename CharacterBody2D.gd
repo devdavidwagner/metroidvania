@@ -10,13 +10,23 @@ var is_dying = false
 var is_dead = false
 var move_camera = false
 var is_jumping = false
+var is_attacking = false
+var direction = "right"
 
-
+func get_direction():
+	return direction
+	
 func get_is_dead():
 	return is_dead
 
 func get_is_jumping():
 	return is_jumping
+	
+func get_is_attacking():
+	return is_attacking
+
+func set_is_attacking(attack):
+	is_attacking = attack
 	
 func set_is_jumping(jump):
 	is_jumping = jump
@@ -32,11 +42,14 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 			is_jumping = true
-		var direction = Input.get_axis("left", "right")
+		direction = Input.get_axis("left", "right")
 		if direction:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+			
+		if Input.is_action_just_pressed("left_click"):
+			is_attacking = true
 	else:
 		velocity.x = 0
 					

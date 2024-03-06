@@ -9,9 +9,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_dying = false
 var is_dead = false
 var move_camera = false
+var last_direction = false
 
 func _ready(): 
 	pass
+
 
 
 func get_is_dead():

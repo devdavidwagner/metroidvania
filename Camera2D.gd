@@ -5,6 +5,7 @@ var move_amount = 256     # Amount to move the camera if the player is past the 
 var player_position = Vector2()
 var player
 var viewport_size 
+var last_direction = "right"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,13 +17,19 @@ var camera_speed = 100
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
  # Get the position of the player
-	if player:
-		if player.move_camera:
-			global_position.x += move_amount
-			player.move_camera = false
-
+	var direction = Input.get_axis("left", "right")
+	
+	if direction > 0:
+		last_direction = "right"
+	else:
+		last_direction = "left"
+	
+	
 	# Get the position of the camera relative to the player
 
 
 func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	global_position.x += move_amount
+	if last_direction == "right":
+		global_position.x += move_amount
+	elif last_direction == "left":
+		global_position.x -= move_amount
