@@ -105,5 +105,4 @@ shape = SubResource("RectangleShape2D_x0ahh")
 [node name="Player" parent="Node2D" instance=ExtResource("7_tiyna")]
 script = ExtResource("8_sxsqs")
 
-[connection signal="body_entered" from="DeathTiles/Area2D" to="Node2D/Player" method="_on_area_2d_body_entered"]
-[connection signal="body_shape_entered" from="EndScreen" to="Camera2D" method="_on_end_screen_body_shape_entered"]
+[connection signal="body_entered" from="DeathTiles/Area2D" to="." method="_on_area_2d_body_entered"]

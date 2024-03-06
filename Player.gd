@@ -1,53 +1,26 @@
-extends RigidBody2D
-const SPEED = 100 # Adjust the speed as needed
+extends Node2D
 
-var velocity = Vector2()
-var gravity = 50
-var screen_size = get_viewport_rect().size # Get the size of the viewport (screen)
+const SPEED = 100.0
+const JUMP_VELOCITY = -300.0
 
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-# Called when the node enters the scene tree for the first tiget chilme.
-func _ready():
+var is_dying = false
+var is_dead = false
+var move_camera = false
+
+func _ready(): 
 	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO
-	
-	if Input.is_action_pressed("right"):
-		velocity.x = SPEED
-	elif Input.is_action_pressed("left"):
-		velocity.x = -SPEED
-	
-	print(velocity.x)
-	apply_central_force(velocity)
-	
-	if Input.is_action_just_pressed("exit_game"):
-		get_tree().quit()
-		
-	var collision = move_and_collide(velocity)
-	print(collision)
-	if collision:
-		print("DEATH")
 
-	
-func positionHandling(position):
-	var new_position = position
 
-	# Check if the sprite is moving off the left or right side of the screen
-	if new_position.x < 0:
-		new_position.x = 0
-	elif new_position.x > screen_size.x:
-		new_position.x = screen_size.x
-
-	# Check if the sprite is moving off the top or bottom side of the screen
-	if new_position.y < 0:
-		new_position.y = 0
-	elif new_position.y > screen_size.y:
-		new_position.y = screen_size.y
-
-	return new_position
+func get_is_dead():
+	return is_dead
 
 
 func _on_area_2d_body_entered(body):
-	position.y = body.position.y
-	print("COLLIDING")
+	if body.name == "CharacterBody2D":
+		var charBody = get_child(0, false)
+		charBody.is_dead = true
+		is_dead = true
+		print("IS DEAD")# Replace with function body.

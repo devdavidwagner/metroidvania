@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
 
@@ -10,10 +9,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_dying = false
 var is_dead = false
 var move_camera = false
+var is_jumping = false
+
 
 func get_is_dead():
 	return is_dead
 
+func get_is_jumping():
+	return is_jumping
+	
+func set_is_jumping(jump):
+	is_jumping = jump
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -25,7 +31,7 @@ func _physics_process(delta):
 	if not is_dead:
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
-		
+			is_jumping = true
 		var direction = Input.get_axis("left", "right")
 		if direction:
 			velocity.x = direction * SPEED
@@ -36,13 +42,7 @@ func _physics_process(delta):
 					
 	move_and_slide()
 
-
-func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if body.name == "CharacterBody2D":
-		is_dead = true
-		print("IS DEAD")
 	
-
 
 func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	move_camera = true

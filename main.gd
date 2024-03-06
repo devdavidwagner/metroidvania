@@ -16,3 +16,8 @@ func _process(delta):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("reload"):  
 		get_tree().reload_current_scene()
+
+
+func _on_area_2d_body_entered(body):
+	emit_signal("collision")
+	print("collision")

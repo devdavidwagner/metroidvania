@@ -22,7 +22,7 @@ func _process(delta):
 			player.move_camera = false
 
 	# Get the position of the camera relative to the player
-	
 
 
-
+func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	global_position.x += move_amount
