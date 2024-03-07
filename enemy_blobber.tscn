@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3 uid="uid://bluqgtblm0cxt"]
+
+[ext_resource type="Texture2D" uid="uid://dludc3efq5gxb" path="res://Assets/Player/enemyMoving.png" id="1_1ms00"]
+[ext_resource type="Script" path="res://enemy_blobber.gd" id="1_n8tgy"]
+[ext_resource type="Script" path="res://enemyBlobSprite.gd" id="3_p6xul"]
+[ext_resource type="Script" path="res://enemy_blobber_Path2D.gd" id="4_xitjo"]
+[ext_resource type="Script" path="res://enemy_blobber_PathFollow2D.gd" id="5_lya6s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxv23"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76cw7"]
+atlas = ExtResource("1_1ms00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqhrt"]
+atlas = ExtResource("1_1ms00")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53q5g"]
+atlas = ExtResource("1_1ms00")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgeug"]
+atlas = ExtResource("1_1ms00")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ntwrh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76cw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqhrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53q5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgeug")
+}],
+"loop": true,
+"name": &"enemy_moving",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_yjovh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 204, 64, 0, 0, 0, 0, 138, 63, 0, 0, 0, 0, 101, 62, 0, 0, 0, 0, 138, 63, 0, 0, 0, 0, 204, 64)
+}
+point_count = 5
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7l2pi"]
+radius = 7.0
+height = 16.0
+
+[node name="EnemyBlobber" type="Node2D" groups=["Enemy"]]
+
+[node name="EnemyBody" type="CharacterBody2D" parent="." groups=["Enemy"]]
+script = ExtResource("1_n8tgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBody" groups=["Enemy"]]
+position = Vector2(235, 137)
+shape = SubResource("CapsuleShape2D_kxv23")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyBody" groups=["Enemy"]]
+texture_filter = 1
+position = Vector2(235, 137)
+sprite_frames = SubResource("SpriteFrames_ntwrh")
+animation = &"enemy_moving"
+script = ExtResource("3_p6xul")
+
+[node name="Path2D" type="Path2D" parent="EnemyBody" groups=["Enemy"]]
+position = Vector2(23, 74)
+curve = SubResource("Curve2D_yjovh")
+script = ExtResource("4_xitjo")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyBody/Path2D" groups=["Enemy"]]
+position = Vector2(204, 64)
+rotation = -3.12644
+script = ExtResource("5_lya6s")
+
+[node name="Area2D" type="Area2D" parent="EnemyBody" groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBody/Area2D" groups=["Enemy"]]
+position = Vector2(235, 137)
+shape = SubResource("CapsuleShape2D_7l2pi")
+
+[connection signal="body_entered" from="EnemyBody/Area2D" to="EnemyBody" method="_on_area_2d_body_entered"]

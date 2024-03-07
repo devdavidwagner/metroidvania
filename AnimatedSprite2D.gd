@@ -30,7 +30,6 @@ func _process(delta):
 		else:
 			stop()
 	elif not is_dead and is_jumping and not is_attacking:
-		print("JUMPING")
 		if not jump_ani_played and last_direction == "right":
 			play("jump_right")
 			jump_ani_played = true
@@ -56,7 +55,6 @@ func _process(delta):
 				get_parent().set_is_attacking(false)
 		
 	else:
-		#print(death_ani_played)
 		if not death_ani_played:
 			death_ani_played = true
 			play("death")

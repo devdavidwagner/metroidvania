@@ -21,8 +21,11 @@ func get_is_dead():
 
 
 func _on_area_2d_body_entered(body):
-	if body.name == "CharacterBody2D":
+	print("BODY: " + body.name)
+	if body.name == "EnemyBody":
+		#is_dead = true
+		pass
+	if body.name == "PlayerBody":
 		var charBody = get_child(0, false)
 		charBody.is_dead = true
-		is_dead = true
-		print("IS DEAD")# Replace with function body.
+		#is_dead = true

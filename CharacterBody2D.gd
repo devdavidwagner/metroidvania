@@ -30,12 +30,20 @@ func set_is_attacking(attack):
 	
 func set_is_jumping(jump):
 	is_jumping = jump
+	
+func _ready():
+	# Access the desired node within the loaded scene
+	var group = get_tree().get_nodes_in_group("Enemy")
+	if not group:
+		print("NOT GROUPED")
+	var node = group[1]
+	print(node.name)
+	node.connect("player_hit",_on_enemy_player_hit, 0)
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += gravity * delta
-		
+		velocity.y += gravity * delta	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if not is_dead:
@@ -55,7 +63,9 @@ func _physics_process(delta):
 					
 	move_and_slide()
 
-	
+func _on_enemy_player_hit():
+	is_dead = true
+	print("ENEMY HIT")
 
 func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	move_camera = true

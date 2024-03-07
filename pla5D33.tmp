@@ -421,29 +421,29 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="Node2D" groups=["Player"]]
+[node name="Player" type="Node2D"]
 
-[node name="PlayerBody" type="CharacterBody2D" parent="." groups=["Player"]]
+[node name="PlayerBody" type="CharacterBody2D" parent="."]
 script = ExtResource("1_gupvm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody" groups=["Player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
 position = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_nts18")
 
-[node name="General_Animated" type="AnimatedSprite2D" parent="PlayerBody" groups=["Player"]]
+[node name="General_Animated" type="AnimatedSprite2D" parent="PlayerBody"]
 texture_filter = 1
 position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_mbt8r")
 animation = &"attack_right"
 script = ExtResource("5_1h5gi")
 
-[node name="Blood_Splat" type="AnimatedSprite2D" parent="PlayerBody" groups=["Player"]]
+[node name="Blood_Splat" type="AnimatedSprite2D" parent="PlayerBody"]
 position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_hxpl8")
 animation = &"blood_splat"
 script = ExtResource("7_e11dv")
 
-[node name="Attack_Animated" type="AnimatedSprite2D" parent="PlayerBody" groups=["Player"]]
+[node name="Attack_Animated" type="AnimatedSprite2D" parent="PlayerBody"]
 position = Vector2(36, 24)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_54b2a")
