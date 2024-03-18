@@ -12,13 +12,13 @@ var move_camera = false
 var last_direction = false
 
 func _ready(): 
+	connect("laser_hit", _on_laser_hit, 0)
+	
+func _process(delta):
 	pass
-
-
 
 func get_is_dead():
 	return is_dead
-
 
 func _on_area_2d_body_entered(body):
 	print("BODY: " + body.name)
@@ -29,3 +29,6 @@ func _on_area_2d_body_entered(body):
 		var charBody = get_child(0, false)
 		charBody.is_dead = true
 		#is_dead = true
+		
+func _on_laser_hit():
+	print("FOUND LASER HIT??!")

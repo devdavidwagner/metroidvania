@@ -2,6 +2,7 @@ extends Camera2D
 
 var move_threshold = 100  # Threshold distance from screen edge to trigger camera movement
 var move_amount = 256     # Amount to move the camera if the player is past the screen edge
+var move_down_amount = 240
 var player_position = Vector2()
 var player
 var viewport_size 
@@ -11,6 +12,7 @@ var last_direction = "right"
 func _ready():
 	player = get_node("../CharacterBody2D")
 	viewport_size = get_viewport_rect().size
+	position = Vector2(512,224) # boss pos
 		
 var camera_speed = 100
 
@@ -29,7 +31,10 @@ func _process(delta):
 
 
 func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if last_direction == "right":
-		global_position.x += move_amount
-	elif last_direction == "left":
-		global_position.x -= move_amount
+	if local_shape_index == 2:
+		global_position.y += move_down_amount
+	else:
+		if last_direction == "right":
+			global_position.x += move_amount
+		elif last_direction == "left":
+			global_position.x -= move_amount

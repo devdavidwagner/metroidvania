@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://cd8xw6qxq8ykw"]
+
+[ext_resource type="Texture2D" uid="uid://bh43dt7o1opej" path="res://Assets/Player/boss.png" id="1_77j1i"]
+[ext_resource type="Script" path="res://boss.gd" id="1_dt58x"]
+[ext_resource type="Script" path="res://Boss_CharBody.gd" id="1_i6ew6"]
+[ext_resource type="Script" path="res://AnimatedSprite2D_boss.gd" id="3_ik4uq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ipddq"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qnt4a"]
+radius = 8.0
+height = 18.0
+
+[sub_resource type="Curve2D" id="Curve2D_au0uw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 132, 233, 0, 0, 0, 0, 132, 233, 0, 0, 0, 0, 132, 233, 0, 0, 0, 0, 64, 232, 0, 0, 0, 0, 10, 232, 0, 0, 0, 0, -32, 231, 0, 0, 0, 0, 132, 233)
+}
+point_count = 7
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noepl"]
+atlas = ExtResource("1_77j1i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flhgq"]
+atlas = ExtResource("1_77j1i")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wg0fc"]
+atlas = ExtResource("1_77j1i")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4j8k"]
+atlas = ExtResource("1_77j1i")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h82xm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noepl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flhgq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wg0fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4j8k")
+}],
+"loop": true,
+"name": &"enemy_move",
+"speed": 6.0
+}]
+
+[node name="Boss" type="Node2D"]
+position = Vector2(171, 226)
+script = ExtResource("1_dt58x")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(0, 1)
+script = ExtResource("1_i6ew6")
+
+[node name="CollisionShape2D_mand" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(32, 0)
+shape = SubResource("CircleShape2D_ipddq")
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+position = Vector2(32, 2)
+shape = SubResource("CapsuleShape2D_qnt4a")
+
+[node name="Path2D" type="Path2D" parent="CharacterBody2D"]
+position = Vector2(-102, -231)
+curve = SubResource("Curve2D_au0uw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="CharacterBody2D/Path2D"]
+position = Vector2(132, 233)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(31, 0)
+sprite_frames = SubResource("SpriteFrames_h82xm")
+animation = &"enemy_move"
+script = ExtResource("3_ik4uq")
+
+[connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]

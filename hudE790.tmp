@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6huvkgycjlmg"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_1px6d"]
+
+[node name="HUD" type="Node2D"]
+top_level = true
+texture_filter = 1
+position = Vector2(240, 7)
+script = ExtResource("1_1px6d")

@@ -1,14 +1,35 @@
-[gd_scene load_steps=14 format=3 uid="uid://bluqgtblm0cxt"]
+[gd_scene load_steps=20 format=3 uid="uid://bluqgtblm0cxt"]
 
 [ext_resource type="Texture2D" uid="uid://dludc3efq5gxb" path="res://Assets/Player/enemyMoving.png" id="1_1ms00"]
 [ext_resource type="Script" path="res://enemy_blobber.gd" id="1_n8tgy"]
+[ext_resource type="Texture2D" uid="uid://bwtncbrf4cbwl" path="res://Assets/Player/enemyDead.png" id="2_uyma4"]
 [ext_resource type="Script" path="res://enemyBlobSprite.gd" id="3_p6xul"]
 [ext_resource type="Script" path="res://enemy_blobber_Path2D.gd" id="4_xitjo"]
 [ext_resource type="Script" path="res://enemy_blobber_PathFollow2D.gd" id="5_lya6s"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxv23"]
-radius = 7.0
-height = 16.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_sx8xh"]
+resource_local_to_scene = true
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf74t"]
+atlas = ExtResource("2_uyma4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nebid"]
+atlas = ExtResource("2_uyma4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li4v5"]
+atlas = ExtResource("2_uyma4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecutl"]
+atlas = ExtResource("2_uyma4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jlvl"]
+atlas = ExtResource("2_uyma4")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_76cw7"]
 atlas = ExtResource("1_1ms00")
@@ -27,7 +48,28 @@ atlas = ExtResource("1_1ms00")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ntwrh"]
+resource_local_to_scene = true
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf74t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nebid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li4v5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecutl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jlvl")
+}],
+"loop": true,
+"name": &"enemy_dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_76cw7")
@@ -53,23 +95,25 @@ _data = {
 point_count = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7l2pi"]
+resource_local_to_scene = true
 radius = 7.0
 height = 16.0
 
 [node name="EnemyBlobber" type="Node2D" groups=["Enemy"]]
+script = ExtResource("1_n8tgy")
 
 [node name="EnemyBody" type="CharacterBody2D" parent="." groups=["Enemy"]]
 script = ExtResource("1_n8tgy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBody" groups=["Enemy"]]
+[node name="CollisionShape2D_mand" type="CollisionShape2D" parent="EnemyBody"]
 position = Vector2(235, 137)
-shape = SubResource("CapsuleShape2D_kxv23")
+shape = SubResource("CircleShape2D_sx8xh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyBody" groups=["Enemy"]]
 texture_filter = 1
 position = Vector2(235, 137)
 sprite_frames = SubResource("SpriteFrames_ntwrh")
-animation = &"enemy_moving"
+animation = &"enemy_dead"
 script = ExtResource("3_p6xul")
 
 [node name="Path2D" type="Path2D" parent="EnemyBody" groups=["Enemy"]]

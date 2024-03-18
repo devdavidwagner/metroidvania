@@ -12,6 +12,10 @@ var move_camera = false
 var is_jumping = false
 var is_attacking = false
 var direction = "right"
+var collision = null
+
+signal laser_hit(id)
+signal boss_hit
 
 func get_direction():
 	return direction
@@ -36,9 +40,14 @@ func _ready():
 	var group = get_tree().get_nodes_in_group("Enemy")
 	if not group:
 		print("NOT GROUPED")
-	var node = group[1]
-	print(node.name)
-	node.connect("player_hit",_on_enemy_player_hit, 0)
+	for node in group:
+		node.connect("player_hit",_on_enemy_player_hit, 0)
+		node.connect("player_hit_boss",_on_boss_player_hit_boss)
+	
+	connect("projectile_boss", _on_boss_attack_hit)
+		
+	position  = Vector2(600,330) # boss pos
+		
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -56,7 +65,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
-		if Input.is_action_just_pressed("left_click"):
+		if Input.is_action_just_pressed("left_click") or Input.is_action_just_pressed("e") :
 			is_attacking = true
 	else:
 		velocity.x = 0
@@ -64,8 +73,29 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_enemy_player_hit():
+	print("PLAYER HIT")
 	is_dead = true
-	print("ENEMY HIT")
 
 func _on_end_screen_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	move_camera = true
+
+
+func _on_area_2d_body_entered(body):
+	print("LASER BODY: " + body.name)
+	if body.name == "EnemyBody":
+		print("EMITTING LASER SIGNAL")
+		emit_signal("laser_hit", body.get_instance_id())
+	if body.name == "CharacterBody2D_boss":
+		print("HIT BOSS WITH LASER")
+		emit_signal("boss_hit")
+
+
+func _on_boss_player_hit_boss():
+	print("PLAYER HIT BY BOSS")
+	is_dead = true
+
+func _on_boss_attack_hit():
+	print("projectile hit player")
+	is_dead = true
+
+

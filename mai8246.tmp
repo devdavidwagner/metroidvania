@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://keay5cjvpqsv"]
+[gd_scene load_steps=146 format=3 uid="uid://keay5cjvpqsv"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_l8xmy"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="2_mxr4d"]
@@ -30,7 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://d2k605sd36kq1" path="res://Assets/Player/attackEffect.png" id="18_syyxx"]
 [ext_resource type="Script" path="res://Attack_Animated.gd" id="19_giwx5"]
 [ext_resource type="Script" path="res://Area2D_player.gd" id="20_p5qn1"]
-[ext_resource type="Texture2D" uid="uid://b0bgmn4g3vq7x" path="res://Assets/Player/boss_dying.png" id="29_k5gqr"]
 [ext_resource type="Script" path="res://HUD.gd" id="31_cilmp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gcpq4"]
@@ -944,22 +943,6 @@ _data = {
 }
 point_count = 7
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m27le"]
-atlas = ExtResource("29_k5gqr")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0b58k"]
-atlas = ExtResource("29_k5gqr")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s7sgx"]
-atlas = ExtResource("29_k5gqr")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivo36"]
-atlas = ExtResource("29_k5gqr")
-region = Rect2(48, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_noepl"]
 atlas = ExtResource("14_1dan1")
 region = Rect2(0, 0, 16, 16)
@@ -980,23 +963,6 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m27le")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0b58k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s7sgx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ivo36")
-}],
-"loop": true,
-"name": &"boss_dying",
-"speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_noepl")
 }, {
 "duration": 1.0,
@@ -1009,7 +975,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_p4j8k")
 }],
 "loop": true,
-"name": &"boss_move",
+"name": &"enemy_move",
 "speed": 6.0
 }]
 
@@ -1066,6 +1032,10 @@ shape = SubResource("RectangleShape2D_x0ahh")
 [node name="CollisionShape2D_down" type="CollisionShape2D" parent="EndScreen"]
 position = Vector2(544, 231)
 shape = SubResource("RectangleShape2D_0x88f")
+
+[node name="HUD" type="Node2D" parent="."]
+position = Vector2(679, 250)
+script = ExtResource("31_cilmp")
 
 [node name="Player" type="Node2D" parent="." groups=["Player"]]
 
@@ -1387,19 +1357,12 @@ position = Vector2(132, 233)
 texture_filter = 1
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_h82xm")
-animation = &"boss_dying"
+animation = &"enemy_move"
 script = ExtResource("17_p04np")
-
-[node name="HUD" type="Node2D" parent="."]
-top_level = true
-texture_filter = 1
-position = Vector2(683, 255)
-script = ExtResource("31_cilmp")
 
 [connection signal="body_shape_entered" from="EndScreen" to="Camera2D" method="_on_end_screen_body_shape_entered"]
 [connection signal="boss_hit" from="Player/PlayerBody" to="Boss/CharacterBody2D_boss" method="_on_player_body_boss_hit"]
 [connection signal="body_entered" from="Player/PlayerBody/Attack_Animated/Area2D" to="Player/PlayerBody" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="Player/PlayerBody/Attack_Animated/Area2D" to="HUD" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="EnemyNode/EnemyBlobber/EnemyBody/Area2D" to="EnemyNode/EnemyBlobber/EnemyBody" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="EnemyNode2/EnemyBlobber/EnemyBody/Area2D" to="EnemyNode2/EnemyBlobber/EnemyBody" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="EnemyNode3/EnemyBlobber/EnemyBody/Area2D" to="EnemyNode3/EnemyBlobber/EnemyBody" method="_on_area_2d_body_entered"]
