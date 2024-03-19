@@ -2,25 +2,18 @@ extends AnimatedSprite2D
 var ani_played = false
 var death_ani_played = false
 var boss = null
+var lastHP = 3
 var charBody = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	show()
-	boss = get_parent().get_parent()
 	charBody = get_parent()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if boss.boss_hp > 0:
-		play("boss_move")
-		ani_played = true
-	elif boss.boss_hp == 0 and not death_ani_played:
-		play("boss_dying")
-		death_ani_played = true
-	elif death_ani_played and frame > 2:
-		frame = 3
-		
-		 
+	if charBody.play_blood_ani:
+		play("blood_boss")
+		print("PLAY BLOOD")
 	
 	
+

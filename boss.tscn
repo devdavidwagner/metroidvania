@@ -50,7 +50,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_p4j8k")
 }],
 "loop": true,
-"name": &"enemy_move",
+"name": &"boss_move",
 "speed": 6.0
 }]
 
@@ -82,9 +82,9 @@ position = Vector2(132, 233)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 texture_filter = 1
-position = Vector2(31, 0)
+position = Vector2(32, 1)
 sprite_frames = SubResource("SpriteFrames_h82xm")
-animation = &"enemy_move"
+animation = &"boss_move"
 script = ExtResource("3_ik4uq")
 
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]

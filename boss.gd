@@ -47,3 +47,4 @@ func _on_Timer_timeout():
 func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body.name == "PlayerBody":
 		emit_signal("player_hit_boss")
+		

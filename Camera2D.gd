@@ -12,7 +12,7 @@ var last_direction = "right"
 func _ready():
 	player = get_node("../CharacterBody2D")
 	viewport_size = get_viewport_rect().size
-	position = Vector2(512,224) # boss pos
+	#position = Vector2(512,224) # boss pos
 		
 var camera_speed = 100
 

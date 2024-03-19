@@ -8,6 +8,7 @@ var path_follow = null
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var parent_boss = null
+var play_blood_ani = false
 
 func _ready():
 	parent_boss = get_parent()
@@ -30,3 +31,4 @@ func _on_area_2d_body_entered(body):
 func _on_player_body_boss_hit():
 	print("boss hit by laser")
 	get_parent().boss_hp -= 1
+	play_blood_ani = true

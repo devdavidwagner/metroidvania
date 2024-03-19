@@ -46,7 +46,7 @@ func _ready():
 	
 	connect("projectile_boss", _on_boss_attack_hit)
 		
-	position  = Vector2(600,330) # boss pos
+	#position  = Vector2(600,330) # boss pos
 		
 
 func _physics_process(delta):
