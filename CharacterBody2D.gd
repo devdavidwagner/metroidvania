@@ -84,10 +84,14 @@ func _on_area_2d_body_entered(body):
 	print("LASER BODY: " + body.name)
 	if body.name == "EnemyBody":
 		print("EMITTING LASER SIGNAL")
+		print("HIT BY ENEMY")
 		emit_signal("laser_hit", body.get_instance_id())
 	if body.name == "CharacterBody2D_boss":
 		print("HIT BOSS WITH LASER")
 		emit_signal("boss_hit")
+	if body.name == "PlayerBody":
+		is_dead = true
+		
 
 
 func _on_boss_player_hit_boss():

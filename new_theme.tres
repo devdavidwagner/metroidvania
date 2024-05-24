@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://8ti6xiruv6o0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggisc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqbyo"]
+
+[resource]
+/colors/c = Color(0.956863, 0.921569, 0.980392, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_ggisc")
+Button/styles/hover = null
+Button/styles/normal = SubResource("StyleBoxFlat_xqbyo")

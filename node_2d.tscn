@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://dobbovmsn1g0f"]
+
+[ext_resource type="Texture2D" uid="uid://jhcs0l5qkjyx" path="res://Assets/Player/title.png" id="1_hi5vg"]
+[ext_resource type="FontFile" uid="uid://becxvdpqve11t" path="res://Assets/Fonts/8bitOperatorPlus-Regular.ttf" id="2_8sj2c"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 255.0
+offset_bottom = 241.0
+texture = ExtResource("1_hi5vg")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 64.0
+offset_top = 118.0
+offset_right = 166.0
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.960784, 0, 1)
+theme_override_colors/font_hover_color = Color(0.243137, 0.243137, 0.243137, 1)
+theme_override_fonts/font = ExtResource("2_8sj2c")
+text = "START"

@@ -24,8 +24,9 @@ func _ready():
 
 func removeHeart():
 	print("REMOVE HEART")
-	var removed_heart = hearts.pop_back()
-	removed_heart.queue_free()
+	if hearts != null and hearts.size() > 0:
+		var removed_heart = hearts.pop_back()
+		removed_heart.queue_free()
 	
 func _process(delta):
 	pass

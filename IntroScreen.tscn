@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt1ubxfd2v8tp"]
+
+[ext_resource type="Texture2D" uid="uid://jhcs0l5qkjyx" path="res://Assets/Player/title.png" id="1_akdvd"]
+[ext_resource type="FontFile" uid="uid://becxvdpqve11t" path="res://Assets/Fonts/8bitOperatorPlus-Regular.ttf" id="2_g4gk8"]
+[ext_resource type="Theme" uid="uid://8ti6xiruv6o0" path="res://new_theme.tres" id="2_vlrj6"]
+[ext_resource type="Script" path="res://Button.gd" id="4_7ddmi"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 255.0
+offset_bottom = 241.0
+texture = ExtResource("1_akdvd")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 64.0
+offset_top = 118.0
+offset_right = 166.0
+offset_bottom = 165.0
+theme = ExtResource("2_vlrj6")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.960784, 0, 1)
+theme_override_colors/font_hover_color = Color(0.243137, 0.243137, 0.243137, 1)
+theme_override_fonts/font = ExtResource("2_g4gk8")
+text = "START"
+script = ExtResource("4_7ddmi")
+
+[connection signal="pressed" from="Control/Button" to="Control/Button" method="_on_pressed"]
